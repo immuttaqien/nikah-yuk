@@ -347,7 +347,7 @@ html.dark .icon-sun  { display: none; }
   transform: translate(-50%, -50%);
   z-index: 1;
   pointer-events: none;
-  width: clamp(280px, 44vw, 500px);
+  width: clamp(380px, 68vw, 720px);
   opacity: 0.13;
   /* subtle fade at bottom so it blends with page below */
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
@@ -371,7 +371,7 @@ html.dark {
 /* on very small screens, reduce size so text doesn't overlap */
 @media (max-width: 480px) {
   .hero-mihrab {
-    width: clamp(220px, 76vw, 320px);
+    width: clamp(280px, 88vw, 420px);
     opacity: 0.10;
   }
 }
