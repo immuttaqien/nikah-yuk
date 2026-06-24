@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer frame -->
+  <rect x="18" y="18" width="364" height="524" rx="2" stroke-width="1"/>
+
+  <!-- Inner frame -->
+  <rect x="30" y="30" width="340" height="500" rx="2" stroke-width="0.6" opacity="0.5"/>
+
+  <!-- Outer arch — pointed ogee form -->
+  <path d="
+    M 60 500
+    L 60 240
+    C 60 130 100 72 200 30
+    C 300 72 340 130 340 240
+    L 340 500
+    Z
+  " stroke-width="1.2"/>
+
+  <!-- Inner arch — slightly smaller, floated up -->
+  <path d="
+    M 80 500
+    L 80 245
+    C 80 148 114 92 200 52
+    C 286 92 320 148 320 245
+    L 320 500
+    Z
+  " stroke-width="0.8" opacity="0.65"/>
+
+  <!-- Keystone top finial (teardrop) -->
+  <path d="M 200 20 C 194 14 188 8 200 2 C 212 8 206 14 200 20 Z" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Spandrel ornament left — small khatam motif -->
+  <g transform="translate(86, 76)" opacity="0.5" stroke-width="0.7">
+    <circle cx="0" cy="0" r="14"/>
+    <path d="M0 -12 L3.5 -3.5 L12 0 L3.5 3.5 L0 12 L-3.5 3.5 L-12 0 L-3.5 -3.5 Z"/>
+    <circle cx="0" cy="0" r="5"/>
+  </g>
+
+  <!-- Spandrel ornament right — mirror -->
+  <g transform="translate(314, 76)" opacity="0.5" stroke-width="0.7">
+    <circle cx="0" cy="0" r="14"/>
+    <path d="M0 -12 L3.5 -3.5 L12 0 L3.5 3.5 L0 12 L-3.5 3.5 L-12 0 L-3.5 -3.5 Z"/>
+    <circle cx="0" cy="0" r="5"/>
+  </g>
+
+  <!-- Columns left -->
+  <line x1="60" y1="500" x2="60" y2="350" stroke-width="1.4"/>
+  <rect x="52" y="348" width="16" height="6" stroke-width="0.8"/>
+  <rect x="50" y="494" width="20" height="6" stroke-width="0.8"/>
+  <rect x="48" y="500" width="24" height="6" stroke-width="0.8"/>
+
+  <!-- Columns right -->
+  <line x1="340" y1="500" x2="340" y2="350" stroke-width="1.4"/>
+  <rect x="332" y="348" width="16" height="6" stroke-width="0.8"/>
+  <rect x="330" y="494" width="20" height="6" stroke-width="0.8"/>
+  <rect x="328" y="500" width="24" height="6" stroke-width="0.8"/>
+
+  <!-- Column base rule -->
+  <line x1="48" y1="506" x2="352" y2="506" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Geometric band inside arch — chain of small diamonds -->
+  <g opacity="0.35" stroke-width="0.6">
+    <!-- top band just below the arch apex -->
+    <path d="M165 88 L175 96 L165 104 L155 96 Z"/>
+    <path d="M183 88 L193 96 L183 104 L173 96 Z"/>
+    <path d="M201 88 L211 96 L201 104 L191 96 Z"/>
+    <path d="M219 88 L229 96 L219 104 L209 96 Z"/>
+    <path d="M237 88 L247 96 L237 104 L227 96 Z"/>
+  </g>
+
+  <!-- Central niche lamp motif -->
+  <g transform="translate(200, 340)" opacity="0.55" stroke-width="0.75">
+    <!-- lamp body -->
+    <path d="M0 -26 C -18 -26 -22 -8 -22 0 C -22 18 -12 28 0 32 C 12 28 22 18 22 0 C 22 -8 18 -26 0 -26 Z"/>
+    <!-- lamp neck -->
+    <line x1="0" y1="-26" x2="0" y2="-38"/>
+    <!-- lamp chain -->
+    <path d="M0 -38 C -3 -44 3 -50 0 -56"/>
+    <!-- flame -->
+    <path d="M0 -42 C -5 -50 -2 -58 0 -62 C 2 -58 5 -50 0 -42 Z" stroke-width="0.6"/>
+    <!-- light rays -->
+    <line x1="-28" y1="0" x2="-36" y2="0" stroke-width="0.5"/>
+    <line x1="28" y1="0" x2="36" y2="0" stroke-width="0.5"/>
+    <line x1="-22" y1="-18" x2="-29" y2="-25" stroke-width="0.5"/>
+    <line x1="22" y1="-18" x2="29" y2="-25" stroke-width="0.5"/>
+    <line x1="-22" y1="18" x2="-29" y2="25" stroke-width="0.5"/>
+    <line x1="22" y1="18" x2="29" y2="25" stroke-width="0.5"/>
+  </g>
+</svg>

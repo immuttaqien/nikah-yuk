@@ -340,6 +340,42 @@ html.dark .icon-sun  { display: none; }
 }
 .hero-from strong { color: var(--ink-soft); font-weight: 600; }
 
+/* Mihrab arch ornament — behind content, centered */
+.hero-mihrab {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  width: clamp(280px, 44vw, 500px);
+  opacity: 0.13;
+  /* subtle fade at bottom so it blends with page below */
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+.hero-mihrab img {
+  width: 100%;
+  height: auto;
+  /* inherit accent color via CSS filter trick — green ink in light, cream in dark */
+  filter: var(--mihrab-filter, none);
+}
+
+/* tint to match brand colors */
+:root {
+  --mihrab-filter: brightness(0) saturate(100%) invert(14%) sepia(46%) saturate(700%) hue-rotate(130deg) brightness(85%);
+}
+html.dark {
+  --mihrab-filter: brightness(0) saturate(100%) invert(99%) sepia(10%) saturate(500%) hue-rotate(10deg) brightness(105%);
+}
+
+/* on very small screens, reduce size so text doesn't overlap */
+@media (max-width: 480px) {
+  .hero-mihrab {
+    width: clamp(220px, 76vw, 320px);
+    opacity: 0.10;
+  }
+}
+
 .scroll-cue {
   position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
   z-index: 2;
