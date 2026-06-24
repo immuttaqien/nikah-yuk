@@ -66,23 +66,4 @@
     <path d="M219 88 L229 96 L219 104 L209 96 Z"/>
     <path d="M237 88 L247 96 L237 104 L227 96 Z"/>
   </g>
-
-  <!-- Central niche lamp motif -->
-  <g transform="translate(200, 340)" opacity="0.55" stroke-width="0.75">
-    <!-- lamp body -->
-    <path d="M0 -26 C -18 -26 -22 -8 -22 0 C -22 18 -12 28 0 32 C 12 28 22 18 22 0 C 22 -8 18 -26 0 -26 Z"/>
-    <!-- lamp neck -->
-    <line x1="0" y1="-26" x2="0" y2="-38"/>
-    <!-- lamp chain -->
-    <path d="M0 -38 C -3 -44 3 -50 0 -56"/>
-    <!-- flame -->
-    <path d="M0 -42 C -5 -50 -2 -58 0 -62 C 2 -58 5 -50 0 -42 Z" stroke-width="0.6"/>
-    <!-- light rays -->
-    <line x1="-28" y1="0" x2="-36" y2="0" stroke-width="0.5"/>
-    <line x1="28" y1="0" x2="36" y2="0" stroke-width="0.5"/>
-    <line x1="-22" y1="-18" x2="-29" y2="-25" stroke-width="0.5"/>
-    <line x1="22" y1="-18" x2="29" y2="-25" stroke-width="0.5"/>
-    <line x1="-22" y1="18" x2="-29" y2="25" stroke-width="0.5"/>
-    <line x1="22" y1="18" x2="29" y2="25" stroke-width="0.5"/>
-  </g>
 </svg>
