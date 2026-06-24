@@ -152,18 +152,19 @@ h3 {
   text-wrap: balance;
 }
 
-/* Pola khatam latar (sangat halus) */
+/* Pola khatam latar — semua section (motif dari nurul-fahri) */
 .pattern-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 5 L36.6 18.4 L50 23 L39.5 31.5 L43 45 L32 37.5 L21 45 L24.5 31.5 L14 23 L27.4 18.4 Z' fill='none' stroke='%2300392C' stroke-width='0.4'/%3E%3C/svg%3E");
-  background-size: 64px 64px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23996b1a' stroke-width='0.7'%3E%3Cpath d='M44 4 L57 31 L84 44 L57 57 L44 84 L31 57 L4 44 L31 31 Z'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='7'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 88px 88px;
   opacity: var(--pattern-opacity);
+  transition: opacity 0.5s ease;
 }
 html.dark .pattern-layer {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 5 L36.6 18.4 L50 23 L39.5 31.5 L43 45 L32 37.5 L21 45 L24.5 31.5 L14 23 L27.4 18.4 Z' fill='none' stroke='%23FFF9D2' stroke-width='0.4'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.7'%3E%3Cpath d='M44 4 L57 31 L84 44 L57 57 L44 84 L31 57 L4 44 L31 31 Z'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='7'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .container {
