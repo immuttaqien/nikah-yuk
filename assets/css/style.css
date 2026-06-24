@@ -1401,13 +1401,27 @@ html.dark .btn-copy.copied {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 7fr);
   gap: clamp(28px, 4vw, 48px);
-  align-items: start;
+  align-items: stretch;
 }
 
 /* form-card di dalam tamu tidak perlu max-width kecil */
 .tamu .form-card {
   max-width: 100%;
   margin-inline: 0;
+}
+.tamu-side {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.tamu-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 6px;
+  /* max-height mengikuti tinggi form di sebelah kiri */
 }
 .tamu-count {
   font-family: var(--body);
@@ -1417,6 +1431,7 @@ html.dark .btn-copy.copied {
   text-transform: uppercase;
   color: var(--ink-mute);
   margin-bottom: 18px;
+  flex-shrink: 0;
 }
 .tamu-list {
   display: flex;
@@ -1533,6 +1548,14 @@ html.dark .footer .names .amp {
   color: color-mix(in srgb, var(--cream) 55%, transparent);
   letter-spacing: 0.08em;
 }
+.footer .credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.footer .credit a:hover { opacity: 1; }
 
 /* scroll-to-top */
 .to-top {

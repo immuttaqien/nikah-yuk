@@ -317,57 +317,47 @@
     // inisialisasi Firebase jika diaktifkan
     function init(cb) {
       if (cfg && cfg.enabled && cfg.config && cfg.config.databaseURL) {
-        loadFirebase()
-          .then(() => {
-            firebase.initializeApp(cfg.config);
-            db = firebase.database();
-            useFb = true;
-            cb && cb();
-          })
-          .catch(() => {
-            useFb = false;
-            cb && cb();
-          });
-      } else {
-        cb && cb();
+        try {
+          if (!window.firebase) throw new Error("Firebase SDK not loaded");
+          firebase.initializeApp(cfg.config);
+          db = firebase.database();
+          useFb = true;
+        } catch (e) {
+          useFb = false;
+        }
       }
-    }
-
-    function loadFirebase() {
-      return new Promise((resolve, reject) => {
-        if (window.firebase && window.firebase.database) return resolve();
-        const a = document.createElement("script");
-        a.src =
-          "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
-        a.onload = () => {
-          const b = document.createElement("script");
-          b.src =
-            "https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js";
-          b.onload = resolve;
-          b.onerror = reject;
-          document.head.appendChild(b);
-        };
-        a.onerror = reject;
-        document.head.appendChild(a);
-      });
+      cb && cb();
     }
 
     function push(path, data) {
       data.ts = Date.now();
-      if (useFb && db) return db.ref(path).push(data);
-      return localPush("ny_" + path, data);
+      if (useFb && db) {
+        return db.ref(path).push(data).catch(() => {});
+      }
+      const result = localPush("ny_" + path, data);
+      // localStorage tidak reaktif — panggil ulang semua listener terdaftar
+      if (_listeners[path]) _listeners[path].forEach((cb) => cb(localGet("ny_" + path)));
+      return result;
     }
+
+    // registry listener untuk localStorage refresh
+    const _listeners = {};
 
     function listen(path, cb) {
       if (useFb && db) {
         db.ref(path)
-          .orderByChild("ts")
           .on("value", (snap) => {
             const arr = [];
-            snap.forEach((c) => arr.push(c.val()));
+            snap.forEach((c) => {
+              const val = c.val();
+              if (val) arr.push(val);
+            });
             cb(arr);
           });
       } else {
+        // simpan listener agar bisa dipanggil ulang setelah push
+        if (!_listeners[path]) _listeners[path] = [];
+        if (!_listeners[path].includes(cb)) _listeners[path].push(cb);
         cb(localGet("ny_" + path));
       }
     }
@@ -383,58 +373,23 @@
     if (wrap) wrap.classList.toggle("invalid", bad);
   }
 
-  /* ── RSVP ── */
-  const rsvpForm = $("#rsvpForm");
-  if (rsvpForm) {
-    const nama = $("#rsvp-nama");
+  /* ── Form Gabungan (RSVP + Buku Tamu) ── */
+  const tamuForm = $("#tamuForm");
+  if (tamuForm) {
+    const nama        = $("#tamu-nama");
+    const asal        = $("#tamu-asal");
+    const pesan       = $("#tamu-pesan");
+    const counter     = $("#tamuCount");
     const fieldJumlah = $("#field-jumlah");
-    const radios = $$('input[name="kehadiran"]', rsvpForm);
+    const radios      = $$('input[name="kehadiran"]', tamuForm);
 
     // sembunyikan jumlah tamu jika tidak hadir
     radios.forEach((r) =>
       r.addEventListener("change", () => {
-        const hadir = $("#hadir-ya").checked;
+        const hadir = $("#hadir-ya") && $("#hadir-ya").checked;
         if (fieldJumlah) fieldJumlah.style.display = hadir ? "" : "none";
       })
     );
-
-    rsvpForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let ok = true;
-      if (!nama.value.trim()) {
-        markInvalid(nama, true);
-        ok = false;
-      } else markInvalid(nama, false);
-
-      const chosen = radios.find((r) => r.checked);
-      const choiceWrap = radios[0].closest(".field");
-      if (!chosen) {
-        choiceWrap.classList.add("invalid");
-        ok = false;
-      } else choiceWrap.classList.remove("invalid");
-
-      if (!ok) return;
-
-      const data = {
-        nama: nama.value.trim(),
-        kehadiran: chosen.value,
-        jumlah: $("#hadir-ya").checked ? $("#rsvp-jumlah").value : "0",
-      };
-      Store.push("rsvp", data);
-      rsvpForm
-        .querySelectorAll(".field, button[type=submit]")
-        .forEach((el) => (el.style.display = "none"));
-      $("#rsvpSuccess").classList.add("show");
-    });
-  }
-
-  /* ── Buku Tamu ── */
-  const tamuForm = $("#tamuForm");
-  if (tamuForm) {
-    const nama = $("#tamu-nama");
-    const asal = $("#tamu-asal");
-    const pesan = $("#tamu-pesan");
-    const counter = $("#tamuCount");
 
     if (pesan && counter) {
       pesan.addEventListener("input", () => {
@@ -445,26 +400,46 @@
     tamuForm.addEventListener("submit", (e) => {
       e.preventDefault();
       let ok = true;
+
       if (!nama.value.trim()) {
-        markInvalid(nama, true);
-        ok = false;
+        markInvalid(nama, true); ok = false;
       } else markInvalid(nama, false);
-      if (!pesan.value.trim()) {
-        markInvalid(pesan, true);
+
+      const chosen = radios.find((r) => r.checked);
+      const choiceWrap = radios[0] && radios[0].closest(".field");
+      if (!chosen) {
+        if (choiceWrap) choiceWrap.classList.add("invalid");
         ok = false;
+      } else {
+        if (choiceWrap) choiceWrap.classList.remove("invalid");
+      }
+
+      if (!pesan.value.trim()) {
+        markInvalid(pesan, true); ok = false;
       } else markInvalid(pesan, false);
+
       if (!ok) return;
 
+      const jumlahEl = $("#tamu-jumlah");
+
+      // simpan ke dua path sekaligus: rsvp + guestbook
+      Store.push("rsvp", {
+        nama:      nama.value.trim(),
+        kehadiran: chosen.value,
+        jumlah:    (chosen.value === "Hadir" && jumlahEl) ? jumlahEl.value : "0",
+      });
       Store.push("guestbook", {
-        nama: nama.value.trim(),
-        asal: asal.value.trim(),
+        nama:  nama.value.trim(),
+        asal:  asal ? asal.value.trim() : "",
         pesan: pesan.value.trim(),
       });
 
+      // sembunyikan semua field & tombol, kecuali success banner
       tamuForm
         .querySelectorAll(".field, button[type=submit]")
         .forEach((el) => (el.style.display = "none"));
-      $("#tamuSuccess").classList.add("show");
+      const successEl = $("#tamuSuccess");
+      if (successEl) successEl.classList.add("show");
     });
   }
 
