@@ -3,20 +3,66 @@
 [build]
   publish = "."
 
+# ── Fallback SPA: semua URL → index.html ──────────────────────
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Security headers untuk semua halaman ──────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    X-Frame-Options            = "SAMEORIGIN"
+    X-Content-Type-Options     = "nosniff"
+    X-XSS-Protection           = "1; mode=block"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Permissions-Policy         = "geolocation=(), microphone=(), camera=()"
 
-# Cache aset statis lama (font di-cache CDN Google sendiri)
+    # CSP: izinkan Firebase SDK + Google Fonts dari CDN resmi
+    Content-Security-Policy    = """
+      default-src 'self';
+      script-src  'self' 'unsafe-inline'
+                  https://www.gstatic.com
+                  https://www.googleapis.com;
+      style-src   'self' 'unsafe-inline'
+                  https://fonts.googleapis.com;
+      font-src    'self'
+                  https://fonts.gstatic.com;
+      img-src     'self' data: blob:;
+      media-src   'self';
+      connect-src 'self'
+                  https://*.firebaseio.com
+                  https://*.googleapis.com
+                  wss://*.firebaseio.com;
+      frame-src   'none';
+      object-src  'none';
+      base-uri    'self';
+    """
+
+# ── index.html — jangan di-cache agar update langsung tampil ──
 [[headers]]
-  for = "/assets/*"
+  for = "/index.html"
   [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Cache-Control = "no-cache, no-store, must-revalidate"
 
+# ── Aset statis: cache 1 tahun (content-hash di nama file) ────
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/ornaments/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── CSS & JS: cache 1 hari (tidak ada hash di nama file) ──────
 [[headers]]
   for = "/assets/css/*"
   [headers.values]

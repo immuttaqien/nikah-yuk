@@ -108,11 +108,9 @@
       if (audioReady) return;
       audioReady = true;
       playAudio();
-      window.removeEventListener("pointerdown", tryFirstPlay);
-      window.removeEventListener("keydown", tryFirstPlay);
     };
-    window.addEventListener("pointerdown", tryFirstPlay, { once: false });
-    window.addEventListener("keydown", tryFirstPlay, { once: false });
+    window.addEventListener("pointerdown", tryFirstPlay, { once: true });
+    window.addEventListener("keydown", tryFirstPlay, { once: true });
   }
 
   /* ─────────────────────────────────────────────
