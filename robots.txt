@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+# Undangan pribadi — tidak diindeks mesin pencari
+Noindex: /
