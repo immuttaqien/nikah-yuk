@@ -40,7 +40,7 @@
   --shadow-card: 0 1px 2px color-mix(in srgb, #00392c 6%, transparent);
   --shadow-lift: 0 18px 40px -24px color-mix(in srgb, #00392c 35%, transparent);
 
-  --pattern-opacity: 0.04;
+  --pattern-opacity: 0.05;
 
   /* Type */
   --display: "Playfair Display", Georgia, serif;
@@ -81,7 +81,7 @@ html.dark {
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-lift: 0 20px 44px -22px rgba(0, 0, 0, 0.6);
 
-  --pattern-opacity: 0.05;
+  --pattern-opacity: 0.09;
 }
 
 /* ─────────────────────────────────────────────
@@ -621,7 +621,7 @@ html.dark {
 
 .profil-photo {
   width: 100%;
-  max-width: 290px;
+  max-width: 220px;
   aspect-ratio: 3/4;
   background: var(--surface-2);
   border: 1px solid var(--line);
