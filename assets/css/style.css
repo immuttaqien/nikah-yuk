@@ -1392,9 +1392,15 @@ html.dark .btn-copy.copied {
    ───────────────────────────────────────────── */
 .tamu-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 7fr);
   gap: clamp(28px, 4vw, 48px);
   align-items: start;
+}
+
+/* form-card di dalam tamu tidak perlu max-width kecil */
+.tamu .form-card {
+  max-width: 100%;
+  margin-inline: 0;
 }
 .tamu-count {
   font-family: var(--body);
@@ -1641,6 +1647,13 @@ html.dark .toast {
   }
   .galeri-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  /* reset spanning items di tablet */
+  .gal-item:nth-last-child(1),
+  .gal-item:nth-last-child(8) {
+    grid-column: span 1;
+    aspect-ratio: 1;
   }
 }
 
@@ -1711,11 +1724,21 @@ html.dark .toast {
 
   .galeri-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
   }
+  /* reset semua spanning — 2 kolom cukup flat di HP */
   .gal-item:nth-child(1),
-  .gal-item:nth-child(8) {
+  .gal-item:nth-child(8),
+  .gal-item:nth-last-child(1),
+  .gal-item:nth-last-child(8) {
     grid-row: span 1;
+    grid-column: span 1;
     aspect-ratio: 1;
+  }
+  /* foto terakhir jadi banner lebar di bagian bawah */
+  .gal-item:last-child {
+    grid-column: span 2;
+    aspect-ratio: 16 / 7;
   }
 
   .countdown {

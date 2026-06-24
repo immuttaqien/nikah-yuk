@@ -26,6 +26,14 @@
   };
   window.addEventListener("scroll", onScroll, { passive: true });
 
+  // scroll-to-top button
+  const toTopBtn = $("#toTop");
+  if (toTopBtn) {
+    toTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   if (burger && navMobile) {
     const closeMenu = () => {
       navMobile.classList.remove("open");
