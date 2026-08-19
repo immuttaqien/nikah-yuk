@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+
+  <!-- Outer rectangular frame -->
+  <rect x="20" y="20" width="360" height="520" rx="2" stroke-width="1"/>
+
+  <!-- Inner rectangular frame -->
+  <rect x="36" y="36" width="328" height="488" rx="2" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Mihrab arch — pointed horseshoe -->
+  <path d="
+    M 72 520
+    L 72 248
+    C 72 136 108 68 200 32
+    C 292 68 328 136 328 248
+    L 328 520
+  " stroke-width="1.5"/>
+
+  <!-- Inner arch — thinner echo -->
+  <path d="
+    M 96 520
+    L 96 254
+    C 96 154 126 92 200 58
+    C 274 92 304 154 304 254
+    L 304 520
+  " stroke-width="0.6" opacity="0.55"/>
+
+  <!-- Apex finial — simple teardrop -->
+  <path d="M 200 24 C 195 16 195 8 200 3 C 205 8 205 16 200 24 Z" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Floor line -->
+  <line x1="36" y1="520" x2="364" y2="520" stroke-width="0.5" opacity="0.4"/>
+
+</svg>

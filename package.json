@@ -1,0 +1,16 @@
+{
+  "name": "nikah-yuk",
+  "version": "1.0.0",
+  "description": "Undangan pernikahan digital satu halaman (single-page). Vanilla HTML/CSS/JS, tanpa build step. Siap deploy ke Netlify.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["wedding-invitation", "undangan-pernikahan", "static-site"],
+  "author": "Ilham Muttaqien",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.61.1"
+  }
+}
